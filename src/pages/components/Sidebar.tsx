@@ -1,7 +1,27 @@
-import { Home, Star, Users, DollarSign, Puzzle, Shield, Settings, FileText } from "lucide-react";
+import { 
+  Home, 
+  LineChart, 
+  BarChart2, 
+  BookText, 
+  Brain, 
+  Settings, 
+  User,
+  Sun,
+  Moon
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Toggle } from "@/components/ui/toggle";
+import { useState } from "react";
 
 export const Sidebar = () => {
+  const [isDarkMode, setIsDarkMode] = useState(true);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+    // Toggle the 'dark' class on the document element
+    document.documentElement.classList.toggle('dark');
+  };
+
   return (
     <div className="w-64 bg-[#151725] h-screen p-6 flex flex-col">
       <div className="flex items-center gap-2 mb-8">
@@ -12,38 +32,46 @@ export const Sidebar = () => {
       <div className="flex-1 space-y-1">
         <Button variant="ghost" className="w-full justify-start gap-3 text-purple-500">
           <Home className="h-5 w-5" />
+          Trade
+        </Button>
+        <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
+          <BarChart2 className="h-5 w-5" />
           Dashboard
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <Star className="h-5 w-5" />
-          Features
+          <BookText className="h-5 w-5" />
+          Trade log
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <Users className="h-5 w-5" />
-          Users
+          <Brain className="h-5 w-5" />
+          Insight
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <DollarSign className="h-5 w-5" />
-          Pricing
-        </Button>
-        <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <Puzzle className="h-5 w-5" />
-          Integrations
+          <LineChart className="h-5 w-5" />
+          Notebook
         </Button>
       </div>
 
       <div className="space-y-1">
-        <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <Shield className="h-5 w-5" />
-          Authentication
-        </Button>
+        <Toggle 
+          className="w-full justify-start gap-3 text-gray-400"
+          pressed={isDarkMode}
+          onPressedChange={toggleTheme}
+        >
+          {isDarkMode ? (
+            <Moon className="h-5 w-5" />
+          ) : (
+            <Sun className="h-5 w-5" />
+          )}
+          {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+        </Toggle>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
           <Settings className="h-5 w-5" />
           Settings
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <FileText className="h-5 w-5" />
-          Template pages
+          <User className="h-5 w-5" />
+          Profile
         </Button>
       </div>
 
