@@ -1,4 +1,4 @@
-import { Home, Star, Users, DollarSign, PuzzlePiece, Shield, Settings, FileText } from "lucide-react";
+import { Home, Star, Users, DollarSign, Puzzle, Shield, Settings, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Sidebar = () => {
@@ -27,7 +27,7 @@ export const Sidebar = () => {
           Pricing
         </Button>
         <Button variant="ghost" className="w-full justify-start gap-3 text-gray-400">
-          <PuzzlePiece className="h-5 w-5" />
+          <Puzzle className="h-5 w-5" />
           Integrations
         </Button>
       </div>
