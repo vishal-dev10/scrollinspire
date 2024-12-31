@@ -14,7 +14,7 @@ import { CompletedTasksChart } from "./components/CompletedTasksChart";
 const Index = () => {
   return (
     <div className="min-h-screen bg-[#0A0B14] text-white">
-      <div className="flex">
+      <div className="flex w-full">
         <Sidebar />
         <main className="flex-1 p-6">
           <div className="flex items-center justify-between mb-8">
