@@ -20,27 +20,29 @@ export const VisitorsChart = () => {
 
       <div className="h-[300px] flex items-center justify-center">
         <ChartContainer className="w-full h-full" config={{}}>
-          <PieChart width={300} height={300}>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              innerRadius={80}
-              outerRadius={120}
-              startAngle={180}
-              endAngle={-180}
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <ChartTooltip />
-          </PieChart>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-            <div className="text-3xl font-bold">150k</div>
-            <div className="text-gray-400">Total Visitors</div>
-          </div>
+          <>
+            <PieChart width={300} height={300}>
+              <Pie
+                data={data}
+                cx="50%"
+                cy="50%"
+                innerRadius={80}
+                outerRadius={120}
+                startAngle={180}
+                endAngle={-180}
+                dataKey="value"
+              >
+                {data.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <ChartTooltip />
+            </PieChart>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
+              <div className="text-3xl font-bold">150k</div>
+              <div className="text-gray-400">Total Visitors</div>
+            </div>
+          </>
         </ChartContainer>
       </div>
 

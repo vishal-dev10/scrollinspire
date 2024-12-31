@@ -62,7 +62,7 @@ const orders = [
   },
 ];
 
-const getStatusColor = (status) => {
+const getStatusColor = (status: string) => {
   switch (status) {
     case "Delivered":
       return "text-green-500 bg-green-500/10";
