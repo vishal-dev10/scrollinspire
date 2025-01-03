@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from "recharts";
+import { useTheme } from "next-themes";
 
 const data = [
   { date: "Jan1", tasks: 50 },
@@ -15,8 +16,11 @@ const data = [
 ];
 
 export const CompletedTasksChart = () => {
+  const { theme } = useTheme();
+  const isDarkMode = theme === "dark";
+
   return (
-    <Card className="bg-[#151725] border-none p-6">
+    <Card className={`p-6 ${isDarkMode ? "bg-[#151725] border-none" : "bg-white border-gray-200"}`}>
       <div className="flex justify-between items-start mb-6">
         <div>
           <div className="flex items-center gap-2">
@@ -35,8 +39,8 @@ export const CompletedTasksChart = () => {
         <ChartContainer className="w-full h-full" config={{}}>
           <ResponsiveContainer>
             <LineChart data={data}>
-              <XAxis dataKey="date" stroke="#666" />
-              <YAxis stroke="#666" />
+              <XAxis dataKey="date" stroke={isDarkMode ? "#666" : "#333"} />
+              <YAxis stroke={isDarkMode ? "#666" : "#333"} />
               <Line
                 type="monotone"
                 dataKey="tasks"

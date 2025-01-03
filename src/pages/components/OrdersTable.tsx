@@ -77,7 +77,7 @@ const getStatusColor = (status: string) => {
 
 export const OrdersTable = () => {
   return (
-    <Card className="bg-[#151725] border-none p-6">
+    <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-semibold">Orders Status</h3>
         <div className="flex items-center gap-4">
@@ -85,7 +85,7 @@ export const OrdersTable = () => {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
             <Input
               placeholder="Search for..."
-              className="pl-10 bg-[#1A1E2D] border-none w-[240px]"
+              className="pl-10 bg-white dark:bg-[#1A1E2D] border border-gray-300 dark:border-none text-black dark:text-white w-[240px]"
             />
           </div>
           <Button className="bg-purple-600 hover:bg-purple-700">
@@ -93,6 +93,7 @@ export const OrdersTable = () => {
           </Button>
         </div>
       </div>
+      
 
       <Table>
         <TableHeader>
@@ -109,7 +110,7 @@ export const OrdersTable = () => {
         </TableHeader>
         <TableBody>
           {orders.map((order) => (
-            <TableRow key={order.id} className="hover:bg-[#1A1E2D]/50">
+            <TableRow key={order.id} className="hover:bg-gray-100 dark:hover:bg-[#1A1E2D]/50">
               <TableCell>
                 <input type="checkbox" className="rounded border-gray-600" />
               </TableCell>

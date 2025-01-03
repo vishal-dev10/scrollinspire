@@ -19,7 +19,7 @@ const data = [
 
 export const RevenueChart = () => {
   return (
-    <Card className="bg-[#151725] border-none p-6">
+    <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
       <div className="flex justify-between items-start mb-6">
         <div>
           <h3 className="text-lg font-semibold">Revenue by customer type</h3>

@@ -12,7 +12,7 @@ const COLORS = ["#8B5CF6", "#60A5FA", "#34D399"];
 
 export const VisitorsChart = () => {
   return (
-    <Card className="bg-[#151725] border-none p-6">
+    <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
       <div className="flex justify-between items-start mb-6">
         <h3 className="text-lg font-semibold">Website Visitors</h3>
         <button className="text-sm text-purple-500">Export ↓</button>

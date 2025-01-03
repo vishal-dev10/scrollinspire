@@ -13,9 +13,9 @@ import { CompletedTasksChart } from "./components/CompletedTasksChart";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-[#0A0B14] text-white">
+    <div className="min-h-screen bg-white dark:bg-[#0A0B14] text-black dark:text-white">
       <div className="flex">
-        <Sidebar />
+        {/* <Sidebar /> */}
         <main className="flex-1 p-6">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-semibold">Analytics</h1>
@@ -24,7 +24,7 @@ const Index = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   placeholder="Search for..."
-                  className="pl-10 bg-[#151725] border-none w-[240px]"
+                  className="pl-10 bg-white dark:bg-[#151725] border border-gray-300 dark:border-none text-black dark:text-white w-[240px]"
                 />
               </div>
               <Button variant="ghost" size="icon">

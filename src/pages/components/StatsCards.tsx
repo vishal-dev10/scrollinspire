@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 export const StatsCards = () => {
   return (
     <div className="grid grid-cols-4 gap-6">
-      <Card className="bg-[#151725] border-none p-6">
+      <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2">
             <Heart className="text-purple-500" />
@@ -18,7 +18,7 @@ export const StatsCards = () => {
         </div>
       </Card>
 
-      <Card className="bg-[#151725] border-none p-6">
+      <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2">
             <Lock className="text-purple-500" />
@@ -32,7 +32,7 @@ export const StatsCards = () => {
         </div>
       </Card>
 
-      <Card className="bg-[#151725] border-none p-6">
+      <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2">
             <ShoppingBag className="text-purple-500" />
@@ -46,7 +46,7 @@ export const StatsCards = () => {
         </div>
       </Card>
 
-      <Card className="bg-[#151725] border-none p-6">
+      <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-2">
             <DollarSign className="text-purple-500" />

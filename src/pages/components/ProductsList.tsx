@@ -18,7 +18,7 @@ const products = [
 
 export const ProductsList = () => {
   return (
-    <Card className="bg-[#151725] border-none p-6">
+    <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
       <h3 className="text-lg font-semibold mb-6">Products</h3>
 
       <div className="space-y-4">
@@ -30,8 +30,8 @@ export const ProductsList = () => {
         {products.map((product) => (
           <div key={product.name} className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#1A1E2D] rounded-lg flex items-center justify-center">
-                <product.icon className="h-6 w-6" />
+              <div className="w-10 h-10 bg-gray-100 dark:bg-[#1A1E2D] rounded-lg flex items-center justify-center">
+                <product.icon className="h-6 w-6 text-black dark:text-white" />
               </div>
               <div>
                 <div className="font-medium">{product.name}</div>
