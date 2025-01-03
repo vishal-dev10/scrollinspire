@@ -6,6 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Search } from "lucide-react";
+import { Line } from 'react-chartjs-2';
+import 'chart.js/auto';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 const NewTradePage = () => {
   const [csvData, setCsvData] = useState([]);
@@ -14,6 +18,8 @@ const NewTradePage = () => {
   const [totalTradeDays, setTotalTradeDays] = useState(0);
   const [profitDays, setProfitDays] = useState(0);
   const [lossDays, setLossDays] = useState(0);
+  const [cumulativeData, setCumulativeData] = useState([]);
+  const [dateWiseProfitLoss, setDateWiseProfitLoss] = useState({});
   const [broker, setBroker] = useState("brokerAlpha");
 
   const handleFileUpload = (e) => {
@@ -49,6 +55,9 @@ const NewTradePage = () => {
     let totalDays = 0;
     let profitDaysCount = 0;
     let lossDaysCount = 0;
+    let cumulativeProfitLoss = 0;
+    const cumulativeDataTemp = {};
+    const dateWiseProfitLossTemp = {};
 
     Object.keys(analysis).forEach((symbol) => {
       Object.keys(analysis[symbol]).forEach((trade_date) => {
@@ -79,6 +88,11 @@ const NewTradePage = () => {
           profitLoss,
         });
 
+        if (!dateWiseProfitLossTemp[trade_date]) {
+          dateWiseProfitLossTemp[trade_date] = 0;
+        }
+        dateWiseProfitLossTemp[trade_date] += profitLoss;
+
         totalDays++;
         if (profitLoss >= 0) {
           totalProfitTrades++;
@@ -90,11 +104,21 @@ const NewTradePage = () => {
       });
     });
 
+    Object.keys(dateWiseProfitLossTemp).forEach((trade_date) => {
+      cumulativeProfitLoss += dateWiseProfitLossTemp[trade_date];
+      cumulativeDataTemp[trade_date] = cumulativeProfitLoss;
+    });
+
     setAnalysisData(result);
     setWinRate((totalProfitTrades / (totalProfitTrades + totalLossTrades)) * 100);
     setTotalTradeDays(totalDays);
     setProfitDays(profitDaysCount);
     setLossDays(lossDaysCount);
+    setCumulativeData(Object.entries(cumulativeDataTemp).map(([trade_date, cumulativeProfitLoss]) => ({ trade_date, cumulativeProfitLoss })));
+    setDateWiseProfitLoss(dateWiseProfitLossTemp);
+    
+    // Save analysis data to localStorage based on broker
+    localStorage.setItem(`analysisData_${broker}`, JSON.stringify(result));
   };
 
   const getColumnNames = (trade) => {
@@ -108,8 +132,9 @@ const NewTradePage = () => {
           trade_date: trade.trade_date,
         };
       case "brokerBeta":
+        const combinedSymbol = `${trade.Symbol}${trade["Expiry Date"]}${trade["Strike Price"]}${trade["Option Type"]}`.replace(/[^a-zA-Z0-9]/g, '');
         return {
-          symbol: trade.Symbol,
+          symbol: combinedSymbol,
           trade_type: trade.Quantity > 0 ? "buy" : "sell",
           quantity: Math.abs(trade.Quantity),
           price: trade.Rate,
@@ -120,12 +145,37 @@ const NewTradePage = () => {
     }
   };
 
+  const chartData = {
+    labels: cumulativeData.map(data => data.trade_date),
+    datasets: [
+      {
+        label: 'Cumulative Profit/Loss',
+        data: cumulativeData.map(data => data.cumulativeProfitLoss),
+        fill: false,
+        backgroundColor: 'rgba(75,192,192,0.4)',
+        borderColor: 'rgba(75,192,192,1)',
+      },
+    ],
+  };
+
+  const tileClassName = ({ date, view }) => {
+    if (view === 'month') {
+      const dateString = date.toISOString().split('T')[0];
+      if (dateWiseProfitLoss[dateString] > 0) {
+        return 'bg-green-500 text-white';
+      } else if (dateWiseProfitLoss[dateString] < 0) {
+        return 'bg-red-500 text-white';
+      }
+    }
+    return '';
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-[#0A0B14] text-black dark:text-white">
       <div className="flex">
         <main className="flex-1 p-6">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-2xl font-semibold">Upload Trade CSV</h1>
+            <h1 className="text-2xl font-semibold">Upload FNO Tradebook CSV</h1>
             <div className="flex items-center gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -200,15 +250,15 @@ const NewTradePage = () => {
                       <p className="text-2xl">{winRate.toFixed(2)}%</p>
                     </Card>
                     <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
-                      <h3 className="text-lg font-semibold">Total Trade Days</h3>
+                      <h3 className="text-lg font-semibold">Total Trades</h3>
                       <p className="text-2xl">{totalTradeDays}</p>
                     </Card>
                     <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
-                      <h3 className="text-lg font-semibold">Profit Days</h3>
+                      <h3 className="text-lg font-semibold">Profit Trades</h3>
                       <p className="text-2xl">{profitDays}</p>
                     </Card>
                     <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
-                      <h3 className="text-lg font-semibold">Loss Days</h3>
+                      <h3 className="text-lg font-semibold">Loss Trades</h3>
                       <p className="text-2xl">{lossDays}</p>
                     </Card>
                   </div>
@@ -237,6 +287,14 @@ const NewTradePage = () => {
                         ))}
                       </TableBody>
                     </Table>
+                  </Card>
+                  <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6 mt-6">
+                    <Line data={chartData} />
+                  </Card>
+                  <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6 mt-6">
+                    <Calendar
+                      tileClassName={tileClassName}
+                    />
                   </Card>
                 </>
               )}

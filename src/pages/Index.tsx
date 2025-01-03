@@ -35,7 +35,7 @@ const Index = () => {
               </Button>
               <div className="flex items-center gap-2">
                 <img src="/lovable-uploads/ae943dd7-fc9a-4b11-9f4d-c35a778fb499.png" alt="Profile" className="h-8 w-8 rounded-full" />
-                <span>Mr John</span>
+                <span>Mr Vishal</span>
               </div>
             </div>
           </div>
@@ -44,14 +44,18 @@ const Index = () => {
             <div className="space-y-6">
               <StatsCards />
               
-              <div className="grid grid-cols-2 gap-6">
-                <VisitorsChart />
-                <RevenueChart />
+              <div className="grid grid-cols-3 gap-6">
+                <div className="col-span-2 flex flex-col">
+                  <CompletedTasksChart />
+                </div>
+                <div className="col-span-1 flex flex-col h-full">
+                  <VisitorsChart />
+                </div>
               </div>
               
               <div className="grid grid-cols-2 gap-6">
-                <ProductsList />
-                <CompletedTasksChart />
+                {/* <ProductsList />
+                    <RevenueChart /> */}
               </div>
               
               <OrdersTable />

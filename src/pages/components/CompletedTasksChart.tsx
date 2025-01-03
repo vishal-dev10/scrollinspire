@@ -20,7 +20,7 @@ export const CompletedTasksChart = () => {
   const isDarkMode = theme === "dark";
 
   return (
-    <Card className={`p-6 ${isDarkMode ? "bg-[#151725] border-none" : "bg-white border-gray-200"}`}>
+    <Card className="bg-white dark:bg-[#151725] border border-gray-300 dark:border-none p-6">
       <div className="flex justify-between items-start mb-6">
         <div>
           <div className="flex items-center gap-2">
@@ -35,7 +35,7 @@ export const CompletedTasksChart = () => {
         <div className="text-sm text-gray-400">Jan 2024</div>
       </div>
 
-      <div className="h-[200px]">
+      <div className="h-[300px]">
         <ChartContainer className="w-full h-full" config={{}}>
           <ResponsiveContainer>
             <LineChart data={data}>
