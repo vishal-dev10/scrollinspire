@@ -8,8 +8,10 @@ import NewTradePage from "./pages/NewTradePage";
 import DashboardPage from "./pages/DashboardPage";
 import TradeLogPage from "./pages/TradeLogPage";
 import InsightPage from "./pages/InsightPage";
-import NotebookPage from "./pages/NotebookPage";
+// import NotebookPage from "./pages/NotebookPage";
 import Layout from "./pages/components/Layout";
+import AuthCallback from "./pages/AuthCallback";
+
 
 const queryClient = new QueryClient();
 
@@ -25,8 +27,8 @@ const App = () => (
             <Route path="/new-trade" element={<NewTradePage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/trade-log" element={<TradeLogPage />} />
-            <Route path="/insight" element={<InsightPage />} />
-            <Route path="/notebook" element={<NotebookPage />} />
+            <Route path="/insight" element={<AuthCallback />} />
+            <Route path="/notebook" element={<InsightPage />} />
           </Routes>
         </Layout>
       </BrowserRouter>

@@ -8,7 +8,7 @@ import NewTradePage from "./pages/NewTradePage";
 import DashboardPage from "./pages/DashboardPage";
 import TradeLogPage from "./pages/TradeLogPage";
 import InsightPage from "./pages/InsightPage";
-import NotebookPage from "./pages/NotebookPage";
+// import NotebookPage from "./pages/NotebookPage";
 import Layout from "./pages/components/Layout";
 import AuthCallback from "./AuthCallback";
 
