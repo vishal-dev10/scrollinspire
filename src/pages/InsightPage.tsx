@@ -1,18 +1,20 @@
-// filepath: /E:/React Vite - TradeMate/scrollinspire/src/pages/InsightPage.tsx
 import React, { useState } from 'react';
-import { flattradeLogin, fetchTradebook } from '../api';
+import { flattradeLogin, fetchTradebook, generateAccessToken } from '../api';
 
 const InsightPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [panOrDob, setPanOrDob] = useState('');
     const [token, setToken] = useState('');
     const [tradebook, setTradebook] = useState([]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const data = await flattradeLogin(username, password);
-        setToken(data.token);
-        fetchTradebookData(data.token);
+        const data = await flattradeLogin(username, password, panOrDob);
+        const requestCode = data.request_code;
+        const accessTokenData = await generateAccessToken(requestCode);
+        setToken(accessTokenData.token);
+        fetchTradebookData(accessTokenData.token);
     };
 
     const fetchTradebookData = async (token) => {
@@ -35,6 +37,12 @@ const InsightPage = () => {
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="PAN/Year of Birth"
+                    value={panOrDob}
+                    onChange={(e) => setPanOrDob(e.target.value)}
                 />
                 <button type="submit">Login</button>
             </form>
@@ -65,55 +73,3 @@ const InsightPage = () => {
 };
 
 export default InsightPage;
-
-// import React, { useEffect, useState } from 'react';
-// import { getItems, createItem } from '../api';
-
-// const InsightPage = () => {
-//     const [items, setItems] = useState([]);
-//     const [newItem, setNewItem] = useState({ name: '', description: '' });
-
-//     useEffect(() => {
-//         fetchItems();
-//     }, []);
-
-//     const fetchItems = async () => {
-//         const data = await getItems();
-//         setItems(data);
-//     };
-
-//     const handleSubmit = async (e) => {
-//         e.preventDefault();
-//         await createItem(newItem);
-//         fetchItems();
-//         setNewItem({ name: '', description: '' });
-//     };
-
-//     return (
-//         <div>
-//             <h1>Items</h1>
-//             <ul>
-//                 {items.map((item) => (
-//                     <li key={item.id}>{item.name}: {item.description}</li>
-//                 ))}
-//             </ul>
-//             <form onSubmit={handleSubmit}>
-//                 <input
-//                     type="text"
-//                     placeholder="Name"
-//                     value={newItem.name}
-//                     onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-//                 />
-//                 <input
-//                     type="text"
-//                     placeholder="Description"
-//                     value={newItem.description}
-//                     onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
-//                 />
-//                 <button type="submit">Add Item</button>
-//             </form>
-//         </div>
-//     );
-// };
-
-// export default InsightPage;
